@@ -1,0 +1,27 @@
+{
+    "name": "store-rating-platform",
+    "version": "1.0.0",
+    "description": "Full-stack store rating platform with role-based access control",
+    "main": "server/index.js",
+    "scripts": {
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "cd server && npm run dev",
+        "client": "cd client && npm start",
+        "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+        "build": "cd client && npm run build",
+        "start": "cd server && npm start"
+    },
+    "keywords": [
+        "store",
+        "rating",
+        "fullstack",
+        "react",
+        "express",
+        "postgresql"
+    ],
+    "author": "Roxiler Intern",
+    "license": "MIT",
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
