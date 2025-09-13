@@ -1,64 +1,70 @@
 # 🚀 Store Rating Platform - Deployment Guide
 
-This guide will help you deploy your Store Rating Platform to production using Railway (backend) and Vercel (frontend).
+This guide will help you deploy your Store Rating Platform to production using **Render.com** (backend) and **Vercel** (frontend) - both completely FREE!
 
 ## 📋 Prerequisites
 
 - GitHub account with your repository: `https://github.com/suryaprasadvangapandu/store-rating-platform`
-- Railway account (free tier available)
-- Vercel account (free tier available)
-- PostgreSQL database (Railway provides this)
+- Render.com account (completely free)
+- Vercel account (completely free)
+- PostgreSQL database (Render provides this for free)
 
-## 🗄️ Step 1: Deploy Backend to Railway
+## 🗄️ Step 1: Deploy Backend to Render.com
 
-### 1.1 Create Railway Account
-1. Go to [railway.app](https://railway.app)
+### 1.1 Create Render Account
+1. Go to [render.com](https://render.com)
 2. Sign up with your GitHub account
 3. Connect your GitHub repository
 
 ### 1.2 Deploy Backend
-1. **Create New Project**:
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Choose `suryaprasadvangapandu/store-rating-platform`
+1. **Create New Web Service**:
+   - Click "New" → "Web Service"
+   - Connect your GitHub repository: `suryaprasadvangapandu/store-rating-platform`
+   - Choose the repository
 
 2. **Configure Service**:
-   - Railway will auto-detect it's a Node.js project
-   - Set **Root Directory** to `server`
-   - Set **Build Command** to `npm install`
-   - Set **Start Command** to `npm start`
+   - **Name**: `store-rating-backend` (or any name you prefer)
+   - **Environment**: `Node`
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+   - **Plan**: `Free` (completely free!)
 
 3. **Add PostgreSQL Database**:
-   - In your Railway project dashboard
-   - Click "New" → "Database" → "PostgreSQL"
-   - Railway will automatically create a PostgreSQL instance
+   - In your Render dashboard
+   - Click "New" → "PostgreSQL"
+   - **Name**: `store-rating-db`
+   - **Plan**: `Free` (completely free!)
+   - **Database**: `store_rating_platform`
+   - Click "Create Database"
 
 4. **Set Environment Variables**:
-   Go to your service → Variables tab and add:
+   Go to your web service → Environment tab and add:
    ```
    NODE_ENV=production
-   JWT_SECRET=your_super_secret_jwt_key_here_make_it_long_and_random
+   JWT_SECRET=your_super_secret_jwt_key_here_make_it_long_and_random_123456789
    JWT_EXPIRES_IN=24h
    CLIENT_URL=https://your-frontend-url.vercel.app
    ```
 
 5. **Database Connection**:
-   Railway automatically provides these variables:
+   Render automatically provides these variables:
    ```
    DATABASE_URL=postgresql://username:password@host:port/database
    ```
    Your `server/config/database.js` will automatically use this.
 
 ### 1.3 Run Database Schema
-1. **Connect to Railway PostgreSQL**:
-   - Go to your PostgreSQL service in Railway
-   - Click "Connect" → "Query"
+1. **Connect to Render PostgreSQL**:
+   - Go to your PostgreSQL service in Render
+   - Click "Connect" → "External Connection"
+   - Use any PostgreSQL client (pgAdmin, DBeaver, or online tools)
    - Copy the contents of `server/database/schema.sql`
    - Paste and execute the SQL commands
 
 2. **Verify Deployment**:
-   - Your backend will be available at: `https://your-app-name.railway.app`
-   - Test: `https://your-app-name.railway.app/health`
+   - Your backend will be available at: `https://your-app-name.onrender.com`
+   - Test: `https://your-app-name.onrender.com/health`
 
 ## 🎨 Step 2: Deploy Frontend to Vercel
 
@@ -82,7 +88,7 @@ This guide will help you deploy your Store Rating Platform to production using R
 3. **Environment Variables**:
    Add these environment variables:
    ```
-   REACT_APP_API_URL=https://your-backend-url.railway.app
+   REACT_APP_API_URL=https://your-backend-url.onrender.com
    ```
 
 4. **Deploy**:

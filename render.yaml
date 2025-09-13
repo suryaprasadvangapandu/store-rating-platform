@@ -1,0 +1,25 @@
+# Render.com Deployment Configuration
+
+services:
+  - type: web
+    name: store-rating-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    rootDir: server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: CLIENT_URL
+        value: https://your-frontend-url.vercel.app
+
+  - type: pserv
+    name: store-rating-db
+    plan: free
+    databaseName: store_rating_platform
+    databaseUser: store_rating_user
