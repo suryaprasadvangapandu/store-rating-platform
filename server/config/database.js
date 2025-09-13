@@ -2,18 +2,28 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 // Use DATABASE_URL if available (for production), otherwise use individual variables (for development)
-const config = process.env.DATABASE_URL ? {
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-} : {
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
-    database: process.env.DB_NAME || 'store_rating_platform',
-    user: process.env.DB_USER || 'postgres',
-    password: process.env.DB_PASSWORD || 'nani@123',
-};
+let config;
+
+if (process.env.DATABASE_URL) {
+    console.log('Using DATABASE_URL for connection');
+    config = {
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    };
+} else {
+    console.log('Using individual DB variables for connection');
+    config = {
+        host: process.env.DB_HOST || 'localhost',
+        port: process.env.DB_PORT || 5432,
+        database: process.env.DB_NAME || 'store_rating_platform',
+        user: process.env.DB_USER || 'postgres',
+        password: process.env.DB_PASSWORD || 'nani@123',
+    };
+}
+
+console.log('Database config:', process.env.DATABASE_URL ? 'Using DATABASE_URL' : 'Using individual variables');
 
 const pool = new Pool({
     ...config,
